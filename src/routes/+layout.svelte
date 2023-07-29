@@ -5,34 +5,45 @@
 	import '@skeletonlabs/skeleton/styles/skeleton.css';
 	// Most of your app wide CSS should be put in this file
 	import '../app.postcss';
-	import { AppShell, AppBar } from '@skeletonlabs/skeleton';
+	import {
+		AppShell,
+		AppBar,
+		Avatar,
+		Drawer,
+		drawerStore,
+		LightSwitch
+	} from '@skeletonlabs/skeleton';
+	import ChatHIstory from '$lib/Components/ChatHIstory.svelte';
+	import Fa from 'svelte-fa/src/fa.svelte';
+	import { faBars } from '@fortawesome/free-solid-svg-icons';
+
+	function drawerOpen() {
+		drawerStore.open();
+	}
 </script>
 
+<Drawer>
+	<ChatHIstory />
+</Drawer>
+
 <!-- App Shell -->
-<AppShell>
+<AppShell slotSidebarLeft="w-0 md:w-52 bg-surface-500/10">
 	<svelte:fragment slot="header">
 		<!-- App Bar -->
 		<AppBar>
 			<svelte:fragment slot="lead">
-				<strong class="text-xl uppercase">Skeleton</strong>
+				<button class="md:hidden btn btn-sm mr-4" on:click={drawerOpen}>
+					<Fa icon={faBars} />
+				</button>
+				<strong class="text-xl uppercase">InfernoChat</strong>
 			</svelte:fragment>
 			<svelte:fragment slot="trail">
-				<a
-					class="btn btn-sm variant-ghost-surface"
-					href="https://discord.gg/EXqV7W8MtY"
-					target="_blank"
-					rel="noreferrer"
-				>
-					Discord
-				</a>
-				<a
-					class="btn btn-sm variant-ghost-surface"
-					href="https://twitter.com/SkeletonUI"
-					target="_blank"
-					rel="noreferrer"
-				>
-					Twitter
-				</a>
+				<LightSwitch />
+				<Avatar
+					border="border-4 border-surface-300-600-token hover:!border-primary-500"
+					cursor="cursor-pointer"
+					initials="CI"
+				/>
 				<a
 					class="btn btn-sm variant-ghost-surface"
 					href="https://github.com/skeletonlabs/skeleton"
@@ -44,6 +55,16 @@
 			</svelte:fragment>
 		</AppBar>
 	</svelte:fragment>
-	<!-- Page Route Content -->
-	<slot />
+	<svelte:fragment slot="sidebarLeft">
+		<ChatHIstory />
+	</svelte:fragment>
+	<!-- (sidebarRight) -->
+	<!-- (pageHeader) -->
+	<!-- Router Slot -->
+	<div class="container p-10 mx-auto">
+		<slot />
+	</div>
+	<!-- ---- / ---- -->
+	<svelte:fragment slot="pageFooter">Page Footer</svelte:fragment>
+	<!-- (footer) -->
 </AppShell>
