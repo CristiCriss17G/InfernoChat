@@ -13,9 +13,10 @@
 		drawerStore,
 		LightSwitch
 	} from '@skeletonlabs/skeleton';
-	import ChatHIstory from '$lib/Components/ChatHIstory.svelte';
+	import ChatHistory from '$lib/Components/ChatHistory.svelte';
 	import Fa from 'svelte-fa/src/fa.svelte';
 	import { faBars } from '@fortawesome/free-solid-svg-icons';
+	import ChatInput from '$lib/Components/ChatInput.svelte';
 
 	function drawerOpen() {
 		drawerStore.open();
@@ -23,7 +24,7 @@
 </script>
 
 <Drawer>
-	<ChatHIstory />
+	<ChatHistory />
 </Drawer>
 
 <!-- App Shell -->
@@ -43,6 +44,7 @@
 					border="border-4 border-surface-300-600-token hover:!border-primary-500"
 					cursor="cursor-pointer"
 					initials="CI"
+					width="w-10 md:w-12"
 				/>
 				<a
 					class="btn btn-sm variant-ghost-surface"
@@ -56,7 +58,7 @@
 		</AppBar>
 	</svelte:fragment>
 	<svelte:fragment slot="sidebarLeft">
-		<ChatHIstory />
+		<ChatHistory />
 	</svelte:fragment>
 	<!-- (sidebarRight) -->
 	<!-- (pageHeader) -->
@@ -65,6 +67,6 @@
 		<slot />
 	</div>
 	<!-- ---- / ---- -->
-	<svelte:fragment slot="pageFooter">Page Footer</svelte:fragment>
+	<svelte:fragment slot="pageFooter"><ChatInput /></svelte:fragment>
 	<!-- (footer) -->
 </AppShell>

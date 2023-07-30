@@ -60,7 +60,12 @@
 	"dependencies": {
 		"@fortawesome/free-brands-svg-icons": "^6.4.0",
 		"@fortawesome/free-solid-svg-icons": "^6.4.0",
+		"@magidoc/plugin-svelte-marked": "^4.0.0",
 		"@prisma/client": "^5.0.0",
 		"svelte-fa": "^3.0.4"
+	},
+	"engines": {
+		"npm": ">=9.8.1",
+		"node": ">=18.17.0"
 	}
 }
