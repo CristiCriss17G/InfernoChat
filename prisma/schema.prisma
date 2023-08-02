@@ -11,26 +11,36 @@ datasource db {
 }
 
 model AiProvider {
-  id               Int               @id @default(autoincrement())
-  name             String            @unique @db.VarChar(50)
-  endpoint         String            @db.VarChar(100)
-  openAiModel      Boolean           @default(false)
-  model            String?           @db.VarChar(50)
-  stream           Boolean           @default(false)
-  payload          String
-  chatInteractions ChatInteraction[]
-  createdAt        DateTime          @default(now())
-  updatedAt        DateTime          @updatedAt
+  id                Int                 @id @default(autoincrement())
+  name              String              @unique @db.VarChar(50)
+  endpoint          String              @db.VarChar(100)
+  providerType      String              @db.VarChar(50)
+  model             String?             @db.VarChar(50)
+  stream            Boolean             @default(false)
+  options           Json
+  chatConversations ChatConversations[]
+  createdAt         DateTime            @default(now())
+  updatedAt         DateTime            @updatedAt
 
   @@index([id, name])
 }
 
-model ChatInteraction {
-  id          Int        @id @default(autoincrement())
-  provider    AiProvider @relation(fields: [providerId], references: [id])
-  providerId  Int
-  userRequest String
-  botResponse String?
-  createdAt   DateTime   @default(now())
-  updatedAt   DateTime   @updatedAt
+model ChatConversations {
+  id           Int            @id @default(autoincrement())
+  provider     AiProvider     @relation(fields: [providerId], references: [id])
+  providerId   Int
+  chatMessages ChatMessages[]
+  options      Json?
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+}
+
+model ChatMessages {
+  id             Int               @id @default(autoincrement())
+  conversation   ChatConversations @relation(fields: [conversationId], references: [id])
+  conversationId Int
+  role           String            @db.VarChar(50)
+  message        String
+  createdAt      DateTime          @default(now())
+  updatedAt      DateTime          @updatedAt
 }
