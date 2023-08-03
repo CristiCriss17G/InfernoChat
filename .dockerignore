@@ -31,6 +31,5 @@
 **/build
 **/dist
 **/.svelte-kit
-**/db
 LICENSE
 README.md
