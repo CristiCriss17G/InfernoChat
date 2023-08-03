@@ -17,6 +17,7 @@ model AiProvider {
   providerType      String              @db.VarChar(50)
   model             String?             @db.VarChar(50)
   stream            Boolean             @default(false)
+  history           Boolean             @default(false)
   options           Json
   chatConversations ChatConversations[]
   createdAt         DateTime            @default(now())
